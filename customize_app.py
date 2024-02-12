@@ -1,29 +1,30 @@
 from dotenv import load_dotenv
 
-
 import os
-from slack_bolt import App
+from slack_bolt.app import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 
 load_dotenv()
-
 
 slack_app_token = os.getenv("SLACK_APP_TOKEN")
 slack_bot_token = os.getenv("SLACK_BOT_TOKEN")
 
 app = App(token=slack_bot_token)
+
 @app.event('message')
 def message(args, say):
-    data =args.__dict__
+    data = args.__dict__
 
-    user_input =data.get('event').get('text')
-    events_ts =data.get('event').get('ts')
-    channel_id =data.get('event').get('channel')
-
+    user_input = data.get('event').get('text')
+    event_ts = data.get('event').get('ts')
+    channel_id = data.get('event').get("channel")
 
     if "hello world" in user_input:
-        say(channel=channel_id, text= 'helllo python',) thread_ts=event_ts, icon_emoji='smile', username="smile Bot"
-        thread_ts=event_ts, icon_emoji
+        # Need chat:write:customize permission scope!
+        say(channel=channel_id, text='hello python!', thread_ts=event_ts, icon_emoji="smile", username="Smile Bot")
 
-        handler = SocketModeHandler(app, slack_app_token)
-        handler.start()
+        # You can also use icon_emoji and username arguments in client.chat_update method!
+
+
+handler = SocketModeHandler(app, slack_app_token)
+handler.start()

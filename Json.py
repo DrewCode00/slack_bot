@@ -1,15 +1,13 @@
-import Json
+import json
 
 with open("example.json", "r") as f:
     data = json.load(f)
 
+print(data["Name"]) # Foo
+print(data["Hobby"][1]) # video game
+print(data["Grade"]["1st Semester"]["Calculus"]) # A
 
-    print(data["Name"])_# Foo
-    print(data["Hobby"])
-    _  # Video Game
-    print(data["Grade"]["1st Semester"]["Calculate"])_# A
+data["Location"] = "Boston"
 
-  data["Location"] = "Boston"
-
-with open("example.json", 'W') as f:
+with open("example.json", 'w') as f:
     json.dump(data, f)
